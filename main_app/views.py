@@ -1,11 +1,24 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Rock
+
+class RockUpdate(UpdateView):
+  model = Rock
+  fields = ['color', 'description']
+
+class RockDelete(DeleteView):
+  model = Rock
+  success_url = '/rocks/'
+
+class RockCreate(CreateView):
+  model = Rock
+  fields = '__all__'
+  success_url = '/rocks/'
 
 
 # Create your views here.
 def home(request):
-  return HttpResponse('<h1>Hello /ᐠ｡‸｡ᐟ\ﾉ</h1>')
+  return render(request, 'home.html')
   
 def about(request):
   return render(request, 'about.html')

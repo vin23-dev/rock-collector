@@ -9,6 +9,10 @@
     <p>Color: {{ rock.color }}</p>
     <p>Description: {{ rock.description }}</p>
   </div>
+  <div class="card-action">
+    <a href="{% url 'rocks_update' rock.id %}">Edit</a>
+    <a href="{% url 'rocks_delete' rock.id %}">Delete</a>
+  </div>
 </div>
 
 {% endblock %}
