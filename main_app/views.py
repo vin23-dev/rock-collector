@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Rock
+
 
 # Create your views here.
 def home(request):
@@ -9,16 +11,9 @@ def about(request):
   return render(request, 'about.html')
 
 def rocks_index(request):
+  rocks = Rock.objects.all()  
   return render(request, 'rocks/index.html', { 'rocks': rocks })
 
-class Rock:  # Note that parens are optional if not inheriting from another class
-  def __init__(self, name, color, description):
-    self.name = name
-    self.color = color
-    self.description = description
-
-rocks = [
-  Rock('Marble', 'white', 'smooth'),
-  Rock('Sandstone', 'tan', 'coarse'),
-  Rock('Limestone', 'grey', 'mineral rich')
-]
+def rocks_detail(request, cat_id):
+  rock = Rock.objects.get(id=rock_id)
+  return render(request, 'rocks/detail.html', { 'rock': rock })
