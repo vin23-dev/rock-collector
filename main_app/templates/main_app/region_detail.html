@@ -8,11 +8,11 @@
     <div class="card">
       <div class="card-content">
         <span class="card-title">{{ region.name }}</span>
-        <p>Rarity: {{ region.rarity }}</p>
+        <p>Regional Rarity: {{ region.rarity }}</p>
       </div>
       <div class="card-action">
-        <a href="{% url 'region_update' region.id %}">Edit</a>
-        <a href="{% url 'region_delete' region.id %}">Delete</a>
+        <a href="{% url 'regions_update' region.id %}">Edit</a>
+        <a href="{% url 'regions_delete' region.id %}">Delete</a>
       </div>
     </div>
   </div>

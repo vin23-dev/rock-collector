@@ -20,8 +20,8 @@
                 <ul class="right">
                     <li><a href="{% url 'about' %}">About</a></li>
                     {% if user.is_authenticated %}
-                      <li><a href="{% url 'region_create' %}">Add a Region</a></li>
-                      <li><a href="{% url 'region_index' %}">View All Regions</a></li>
+                      <li><a href="{% url 'regions_create' %}">Add a Region</a></li>
+                      <li><a href="{% url 'regions_index' %}">View All Regions</a></li>
                       <li><a href="{% url 'rocks_create' %}">Add a Rock</a></li>
                       <li><a href="{% url 'index' %}">View All Rocks</a></li>
                       <li><a href="{% url 'logout' %}">Log Out</a></li>

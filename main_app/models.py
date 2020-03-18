@@ -24,21 +24,21 @@ class Region(models.Model):
   name = models.CharField(max_length=50)
   rarity = models.CharField(
     max_length=1,
-    choices=QUALITY,
-    default=QUALITY[0][0]
+    choices=RARITY,
+    default=RARITY[0][0]
   )
 
   def __str__(self):
     return self.name
 
   def get_absolute_url(self):
-    return reverse('region_detail', kwargs={'pk': self.id})
+    return reverse('regions_detail', kwargs={'pk': self.id})
 
 class Rock(models.Model):
   name = models.CharField(max_length=100)
   color = models.CharField(max_length=100)
   description = models.TextField(max_length=250)
-  region = models.ManyToManyField(Region)
+  regions = models.ManyToManyField(Region)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def __str__(self):

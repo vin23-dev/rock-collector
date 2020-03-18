@@ -43,11 +43,11 @@ def rocks_index(request):
 @login_required
 def rocks_detail(request, rock_id):
   rock = Rock.objects.get(id=rock_id)
-  region_rock_doesnt_have = Region.objects.exclude(id__in = rock.region.all().values_list('id'))
+  regions_rock_doesnt_have = Region.objects.exclude(id__in = rock.regions.all().values_list('id'))
   quality_form = QualityForm()
   return render(request, 'rocks/detail.html', {
     'rock': rock, 'quality_form': quality_form,
-    'region': region_rock_doesnt_have
+    'regions': regions_rock_doesnt_have
   })
 
 @login_required
@@ -61,12 +61,12 @@ def add_quality(request, rock_id):
 
 @login_required
 def assoc_region(request, rock_id, region_id):
-  Rock.objects.get(id=rock_id).region.add(region_id)
+  Rock.objects.get(id=rock_id).regions.add(region_id)
   return redirect('detail', rock_id=rock_id)
 
 @login_required
 def unassoc_region(request, rock_id, region_id):
-  Rock.objects.get(id=rock_id).region.remove(region_id)
+  Rock.objects.get(id=rock_id).regions.remove(region_id)
   return redirect('detail', rock_id=rock_id)
 
 class RegionList(LoginRequiredMixin, ListView):
@@ -85,7 +85,7 @@ class RegionUpdate(LoginRequiredMixin, UpdateView):
 
 class RegionDelete(LoginRequiredMixin, DeleteView):
   model = Region
-  success_url = '/region/'
+  success_url = '/regions/'
 
 def signup(request):
   error_message = ''
