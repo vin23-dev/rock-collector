@@ -9,10 +9,33 @@ QUALITY = (
     ('P', 'Pristine')
 )
 
+RARITY = (
+    ('C', 'Common'),
+    ('U', 'Uncommon'),
+    ('R', 'Rare'),
+    ('E', 'Epic'),
+    ('L', 'Legendary')
+)
+
+class Region(models.Model):
+  name = models.CharField(max_length=50)
+  rarity = models.CharField(
+    max_length=1,
+    choices=QUALITY,
+    default=QUALITY[0][0]
+  )
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('toys_detail', kwargs={'pk': self.id})
+
 class Rock(models.Model):
   name = models.CharField(max_length=100)
   color = models.CharField(max_length=100)
   description = models.TextField(max_length=250)
+  region = models.ManyToManyField(Region)
 
   def __str__(self):
     return self.name
