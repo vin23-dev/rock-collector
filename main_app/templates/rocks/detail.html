@@ -38,6 +38,56 @@
     </table>
   </div>
 </div>
+
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ rock.name }}'s Regions</h3>
+    {% if rock.region.count %}
+      {% for region in rock.region.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span style="rarity: {{ region.rarity }}">{{ region.rarity }}</span> {{ region.name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'unassoc_region' rock.id region.id %}" method="post">
+                {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Regions Added</h5>
+    {% endif %}
+  </div>
+
+  <div class="col s6">
+    <h3>Available Regions</h3>
+    {% if region.count %}
+      {% for region in region.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span style="rarity: {{ region.rarity }}">{{ region.rarity }}</span> {{ region.name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_region' rock.id region.id %}" method="post">
+                {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{rock.name}} Already has all regions in which this rock is found.</h5>
+    {% endif %}
+  </div>
+</div>
+
 <script>
   var dateEl = document.getElementById('id_date');
   M.Datepicker.init(dateEl, {
