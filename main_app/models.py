@@ -27,6 +27,7 @@ class Region(models.Model):
     choices=RARITY,
     default=RARITY[0][0]
   )
+  
 
   def __str__(self):
     return self.name
