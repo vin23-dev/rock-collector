@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Rock
+from .forms import QualityForm
 
 class RockUpdate(UpdateView):
   model = Rock
@@ -29,4 +30,15 @@ def rocks_index(request):
 
 def rocks_detail(request, rock_id):
   rock = Rock.objects.get(id=rock_id)
-  return render(request, 'rocks/detail.html', { 'rock': rock })
+  quality_form = QualityForm()
+  return render(request, 'rocks/detail.html', {
+    'rock': rock, 'quality_form': quality_form
+  })
+
+def add_quality(request, rock_id):
+  form = QualityForm(request.POST)
+  if form.is_valid():
+    new_quality = form.save(commit=False)
+    new_quality.rock_id = rock_id
+    new_quality.save()
+  return redirect('detail', rock_id=rock_id)
